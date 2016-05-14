@@ -1,0 +1,7 @@
+{
+  "name": "server-side-react-example",
+  "version": "0.0.0",
+  "description": "An example of server-side rendering with React.",
+  "author": "Mark <mark@remarkablemark.org>",
+  "license": "MIT"
+}
