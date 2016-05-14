@@ -45,7 +45,18 @@ const server = http.createServer((req, res) => {
     // default html
     } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end('<h1>Hello world!</h1>');
+        res.end(`
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Example</title>
+                </head>
+                <body>
+                    <h1>Hello world!</h1>
+                    <script src='/static/main.js'></script>
+                </body>
+            </html>
+        `);
     }
 });
 
