@@ -1,6 +1,14 @@
 'use strict';
 
 /**
+ * Use Babel require hook to transpile JSX on server-side.
+ * https://babeljs.io/docs/usage/require/
+ */
+require('babel-register')({
+    presets: ['react']
+});
+
+/**
  * Module dependencies.
  */
 const http = require('http');
