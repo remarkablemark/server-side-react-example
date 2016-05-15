@@ -26,6 +26,40 @@ const PORT = 3000;
 const IP = '127.0.0.1';
 
 /**
+ * Handle static files.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+function handleStatic(req, res) {
+    const pathname = url.parse(req.url).pathname;
+    const filepath = path.join(__dirname, pathname);
+
+    fs.lstat(filepath, (err, stats) => {
+        if (err) {
+            res.writeHead(404);
+            return res.end('Not Found');
+        }
+
+        if (stats.isFile()) {
+            fs.readFile(filepath, 'utf8', (err, file) => {
+                if (err) {
+                    res.writeHead(500);
+                    return res.end('Internal Server Error');
+                }
+
+                res.writeHead(200);
+                res.end(file);
+            });
+
+        } else {
+            res.writeHead(404);
+            res.end('Not Found');
+        }
+    });
+}
+
+/**
  * Create web server.
  */
 const server = http.createServer((req, res) => {
@@ -33,31 +67,7 @@ const server = http.createServer((req, res) => {
 
     // static file
     if (req.method === 'GET' && req.url.indexOf(`/${PUBLIC_PATH}/`) === 0) {
-        const pathname = url.parse(req.url).pathname;
-        const filepath = path.join(__dirname, pathname);
-
-        fs.lstat(filepath, (err, stats) => {
-            if (err) {
-                res.writeHead(404);
-                return res.end('Not Found');
-            }
-
-            if (stats.isFile()) {
-                fs.readFile(filepath, 'utf8', (err, file) => {
-                    if (err) {
-                        res.writeHead(500);
-                        return res.end('Internal Server Error');
-                    }
-
-                    res.writeHead(200);
-                    res.end(file);
-                });
-
-            } else {
-                res.writeHead(404);
-                res.end('Not Found');
-            }
-        });
+        handleStatic(req, res);
 
     // default html
     } else {
