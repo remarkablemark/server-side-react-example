@@ -27,10 +27,14 @@ module.exports = React.createClass({
         return (
             <html>
                 <head>
-                    <title>Example</title>
+                    <meta charSet='utf-8' />
+                    <title>Server-Side React Example</title>
+                    <link rel='stylesheet'
+                          href={`/${this.props.publicPath}/css/style.css`}
+                    />
                 </head>
                 <body>
-                    <h1>Hello world!</h1>
+                    <h1>Server-Side React Example</h1>
                     <script dangerouslySetInnerHTML={{ __html: propsString }} />
                     <script src={`/${this.props.publicPath}/js/bundle.js`} />
                 </body>
