@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 const React = require('react');
+const Todo = require('./Todo');
 
 /**
  * App component.
@@ -15,10 +16,6 @@ module.exports = React.createClass({
         return {
             publicPath: ''
         };
-    },
-
-    componentDidMount: function() {
-        alert('App component mounted!');
     },
 
     render: function() {
@@ -35,6 +32,8 @@ module.exports = React.createClass({
                 </head>
                 <body>
                     <h1>Server-Side React Example</h1>
+                    <Todo />
+
                     <script dangerouslySetInnerHTML={{ __html: propsString }} />
                     <script src={`/${this.props.publicPath}/js/bundle.js`} />
                 </body>
