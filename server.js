@@ -12,11 +12,9 @@ require('babel-register')({
  * Module dependencies.
  */
 const http = require('http');
-const url = require('url');
-const fs = require('fs');
-const path = require('path');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
+const serveStatic = require('./serve-static');
 
 /**
  * Constants.
@@ -26,40 +24,6 @@ const PORT = 3000;
 const IP = '127.0.0.1';
 
 /**
- * Handle static files.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- */
-function handleStatic(req, res) {
-    const pathname = url.parse(req.url).pathname;
-    const filepath = path.join(__dirname, pathname);
-
-    fs.lstat(filepath, (err, stats) => {
-        if (err) {
-            res.writeHead(404);
-            return res.end('Not Found');
-        }
-
-        if (stats.isFile()) {
-            fs.readFile(filepath, 'utf8', (err, file) => {
-                if (err) {
-                    res.writeHead(500);
-                    return res.end('Internal Server Error');
-                }
-
-                res.writeHead(200);
-                res.end(file);
-            });
-
-        } else {
-            res.writeHead(404);
-            res.end('Not Found');
-        }
-    });
-}
-
-/**
  * Create web server.
  */
 const server = http.createServer((req, res) => {
@@ -67,7 +31,7 @@ const server = http.createServer((req, res) => {
 
     // static file
     if (req.method === 'GET' && req.url.indexOf(`/${PUBLIC_PATH}/`) === 0) {
-        handleStatic(req, res);
+        serveStatic(req, res);
 
     // default html
     } else {
