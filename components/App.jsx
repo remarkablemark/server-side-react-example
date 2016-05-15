@@ -32,7 +32,7 @@ module.exports = React.createClass({
                 <body>
                     <h1>Hello world!</h1>
                     <script dangerouslySetInnerHTML={{ __html: propsString }} />
-                    <script src={`/${this.props.publicPath}/bundle.js`} />
+                    <script src={`/${this.props.publicPath}/js/bundle.js`} />
                 </body>
             </html>
         );

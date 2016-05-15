@@ -11,7 +11,7 @@ const ReactDOM = require('react-dom');
  */
 ReactDOM.render(
     React.createElement(
-        require('../components/App.jsx'),
+        require('../../components/App.jsx'),
         window.__PROPS__
     ),
     document

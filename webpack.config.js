@@ -4,11 +4,11 @@
  * Webpack configuration.
  */
 module.exports = {
-    entry: './src/main.js',
+    entry: './src/js/main.js',
 
     output: {
         filename: 'bundle.js',
-        path: './build/'
+        path: './build/js/'
     },
 
     devtool: 'inline-source-map',
