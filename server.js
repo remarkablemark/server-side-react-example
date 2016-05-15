@@ -15,7 +15,12 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 
+/**
+ * Constants.
+ */
 const PUBLIC_PATH = 'build';
 const PORT = 3000;
 const IP = '127.0.0.1';
@@ -57,18 +62,10 @@ const server = http.createServer((req, res) => {
     // default html
     } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>Example</title>
-                </head>
-                <body>
-                    <h1>Hello world!</h1>
-                    <script src='/${PUBLIC_PATH}/bundle.js'></script>
-                </body>
-            </html>
-        `);
+        const html = ReactDOMServer.renderToString(
+            React.createElement(require('./components/App.jsx'))
+        );
+        res.end(`<!DOCTYPE html>${html}`);
     }
 });
 
