@@ -6,8 +6,9 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "webpack -p && node server.js",
-    "dev": "webpack -w & nodemon server.js"
+    "start": "npm run clean && webpack -p && node server.js",
+    "dev": "npm run clean && webpack -w & nodemon server.js",
+    "clean": "rm -rf build"
   },
   "dependencies": {
     "babel-core": "^6.8.0",
