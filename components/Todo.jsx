@@ -11,10 +11,16 @@ const React = require('react');
 module.exports = React.createClass({
     displayName: 'Todo',
 
+    getDefaultProps: function() {
+        return {
+            todos: []
+        };
+    },
+
     getInitialState: function() {
         return {
             todoValue: '',
-            todos: []
+            todos: this.props.todos
         };
     },
 
@@ -47,18 +53,28 @@ module.exports = React.createClass({
                     <input type='text'
                         value={this.state.todoValue}
                         onChange={this._handleChange}
-                        autoFocus
+                        name='todo'
                         ref='todoInput'
+                        autoFocus
                     />
+
+                    {this.props.todos.map((todo, index) => {
+                        return (
+                            <input type='hidden'
+                                   name='todo'
+                                   value={todo}
+                                   key={index}
+                            />
+                        );
+                    })}
+
                     &nbsp;
                     <input type='submit' value='Add Todo' />
                 </form>
 
                 <ul>
                     {this.state.todos.map((todo, index) => {
-                        return (
-                            <li key={index}>{todo}</li>
-                        );
+                        return <li key={index}>{todo}</li>;
                     })}
                 </ul>
             </div>

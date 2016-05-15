@@ -32,7 +32,7 @@ module.exports = React.createClass({
                 </head>
                 <body>
                     <h1>Server-Side React Example</h1>
-                    <Todo />
+                    <Todo todos={this.props.todos} />
 
                     <script dangerouslySetInnerHTML={{ __html: propsString }} />
                     <script src={`/${this.props.publicPath}/js/bundle.js`} />

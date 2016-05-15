@@ -12,6 +12,7 @@ require('babel-register')({
  * Module dependencies.
  */
 const http = require('http');
+const url = require('url');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const serveStatic = require('./serve-static');
@@ -35,16 +36,24 @@ const server = http.createServer((req, res) => {
 
     // default html
     } else {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        const props = {
+        let props = {
             publicPath: PUBLIC_PATH
         };
+
+        const query = url.parse(req.url, true).query;
+        if (query.todo) {
+            props.todos = query.todo.constructor === Array ?
+                          query.todo : [query.todo]
+        }
+
         const html = ReactDOMServer.renderToString(
             React.createElement(
                 require('./components/App.jsx'),
                 props
             )
         );
+
+        res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`<!DOCTYPE html>${html}`);
     }
 });
