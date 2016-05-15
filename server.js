@@ -72,8 +72,14 @@ const server = http.createServer((req, res) => {
     // default html
     } else {
         res.writeHead(200, { 'Content-Type': 'text/html' });
+        const props = {
+            publicPath: PUBLIC_PATH
+        };
         const html = ReactDOMServer.renderToString(
-            React.createElement(require('./components/App.jsx'))
+            React.createElement(
+                require('./components/App.jsx'),
+                props
+            )
         );
         res.end(`<!DOCTYPE html>${html}`);
     }

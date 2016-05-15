@@ -11,11 +11,19 @@ const React = require('react');
 module.exports = React.createClass({
     displayName: 'App',
 
+    getDefaultProps: function() {
+        return {
+            publicPath: ''
+        };
+    },
+
     componentDidMount: function() {
         alert('App component mounted!');
     },
 
     render: function() {
+        const propsString = `window.__PROPS__=${JSON.stringify(this.props)}`;
+
         return (
             <html>
                 <head>
@@ -23,7 +31,8 @@ module.exports = React.createClass({
                 </head>
                 <body>
                     <h1>Hello world!</h1>
-                    <script src='/build/bundle.js' />
+                    <script dangerouslySetInnerHTML={{ __html: propsString }} />
+                    <script src={`/${this.props.publicPath}/bundle.js`} />
                 </body>
             </html>
         );
