@@ -6,7 +6,8 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "webpack && node server.js"
+    "start": "webpack -p && node server.js",
+    "dev": "webpack -w & nodemon server.js"
   },
   "dependencies": {
     "babel-core": "^6.8.0",
@@ -17,6 +18,9 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "webpack": "^1.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
   },
   "license": "MIT"
 }
