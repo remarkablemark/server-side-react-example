@@ -6,10 +6,12 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "npm run clean && npm run copy && webpack -p && node server.js",
-    "dev": "npm run clean && npm run copy && webpack -w & nodemon server.js",
+    "start": "npm run clean && npm run copy && webpack -p && npm run server:production",
+    "dev": "npm run clean && npm run copy && webpack -w & npm run server:development",
     "clean": "rm -rf build",
-    "copy": "mkdir -p build/css && cp -r src/css build"
+    "copy": "mkdir -p build/css && cp -r src/css build",
+    "server:production": "NODE_ENV=production node server.js",
+    "server:development": "NODE_ENV=development nodemon server.js"
   },
   "dependencies": {
     "babel-core": "^6.8.0",
