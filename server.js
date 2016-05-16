@@ -40,7 +40,8 @@ const server = http.createServer((req, res) => {
     } else {
         let props = {
             publicPath: PUBLIC_PATH,
-            isProduction: IS_PRODUCTION
+            isProduction: IS_PRODUCTION,
+            reactVersion: React.version
         };
 
         // extract data from querystring and add to props (if applicable)

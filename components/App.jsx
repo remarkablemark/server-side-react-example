@@ -21,6 +21,18 @@ module.exports = React.createClass({
     render: function() {
         const propsString = `window.__PROPS__=${JSON.stringify(this.props)}`;
 
+        const reactVersion = this.props.reactVersion;
+        // use the minified version of React in production (warnings are suppressed)
+        // use the unminified version of React in development (warnings are displayed)
+        const reactBuild = this.props.isProduction ? '.min' : '';
+
+        // scripts (order matters)
+        const scripts = [
+            `//cdnjs.cloudflare.com/ajax/libs/react/${reactVersion}/react${reactBuild}.js`,
+            `//cdnjs.cloudflare.com/ajax/libs/react/${reactVersion}/react-dom${reactBuild}.js`,
+            `/${this.props.publicPath}/js/bundle.js`
+        ];
+
         return (
             <html>
                 <head>
@@ -34,8 +46,13 @@ module.exports = React.createClass({
                     <h1>Server-Side React Example</h1>
                     <Todo todos={this.props.todos} />
 
+                    {/* props as json */}
                     <script dangerouslySetInnerHTML={{ __html: propsString }} />
-                    <script src={`/${this.props.publicPath}/js/bundle.js`} />
+
+                    {/* scripts */}
+                    {scripts.map((src, index) => {
+                        return <script src={src} key={index} />;
+                    })}
                 </body>
             </html>
         );

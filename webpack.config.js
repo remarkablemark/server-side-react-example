@@ -28,5 +28,10 @@ module.exports = {
 
     resolve: {
         extensions: ['', '.js', '.json', '.jsx']
+    },
+
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
     }
 };
