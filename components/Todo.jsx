@@ -24,16 +24,28 @@ module.exports = React.createClass({
         };
     },
 
+    /**
+     * Update the input value when the user types.
+     * https://facebook.github.io/react/docs/forms.html#controlled-components
+     *
+     * @param {SyntheticEvent} event - The event.
+     */
     _handleChange: function(event) {
         this.setState({
             todoValue: event.target.value
         });
     },
 
+    /**
+     * Add the todo when the input is submitted.
+     *
+     * @param {SyntheticEvent} event - The event.
+     */
     _handleSubmit: function(event) {
         event.preventDefault();
         this.refs.todoInput.focus();
 
+        // add todo only if it's not empty
         if (this.state.todoValue) {
             this.setState({
                 todos: this.state.todos.concat(
@@ -49,7 +61,10 @@ module.exports = React.createClass({
             <div>
                 <h3>Todo List</h3>
 
+                {/* form */}
                 <form onSubmit={this._handleSubmit}>
+
+                    {/* primary input */}
                     <input type='text'
                         value={this.state.todoValue}
                         onChange={this._handleChange}
@@ -58,6 +73,7 @@ module.exports = React.createClass({
                         autoFocus
                     />
 
+                    {/* hidden todos passed from the server-side */}
                     {this.props.todos.map((todo, index) => {
                         return (
                             <input type='hidden'
@@ -69,9 +85,12 @@ module.exports = React.createClass({
                     })}
 
                     &nbsp;
+                    {/* submit button */}
                     <input type='submit' value='Add Todo' />
+
                 </form>
 
+                {/* list of todos */}
                 <ul>
                     {this.state.todos.map((todo, index) => {
                         return <li key={index}>{todo}</li>;
