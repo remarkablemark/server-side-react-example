@@ -24,6 +24,7 @@ const serveStatic = require('./serve-static');
 const PUBLIC_PATH = 'build';
 const PORT = 3000;
 const IP = '127.0.0.1';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 /**
  * Create web server.
@@ -38,7 +39,8 @@ const server = http.createServer((req, res) => {
     // otherwise response with default html
     } else {
         let props = {
-            publicPath: PUBLIC_PATH
+            publicPath: PUBLIC_PATH,
+            isProduction: IS_PRODUCTION
         };
 
         // extract data from querystring and add to props (if applicable)
